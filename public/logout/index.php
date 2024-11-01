@@ -1,5 +1,4 @@
 <?
-session_start();
 
-unset($_SESSION['ywt']);
+setcookie("jwt", "removal", 1, "/");
 header('Location: /login');

@@ -1,5 +1,6 @@
 <?
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 
 $parent_dir = dirname(__FILE__, 3);
 require_once realpath($parent_dir . "/vendor/autoload.php");
@@ -8,12 +9,15 @@ require_once realpath($parent_dir . "/vendor/autoload.php");
 $dotenv = Dotenv\Dotenv::createImmutable($parent_dir);
 $dotenv->load();
 
-session_start();
-
-// Check if ywt is not set
-if (isset($_SESSION['ywt'])) {
+$jwt = $_COOKIE['ywt'] ?? "";
+$secretKey = $_ENV['JWT_SECRET_KEY'];
+try {
+    $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
+    // Token is valid, proceed to dashboard
     header('Location: /dashboard');
     exit();
+} catch (Exception $e) {
+    // Token is invalid, redirect to login
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $jwt = JWT::encode($payload, $secretKey, 'HS256');
 
-    $_SESSION['jwt'] = $jwt;
+    setcookie('jwt', $jwt, time() + 3600, "/");
 
     header('Location: /dashboard');
     exit();

@@ -9,26 +9,17 @@ require_once realpath($parent_dir . "/vendor/autoload.php");
 $dotenv = Dotenv\Dotenv::createImmutable($parent_dir);
 $dotenv->load();
 
-session_start();
-
-// Check if ywt is set
-if (!isset($_SESSION['ywt'])) {
+$jwt = $_COOKIE['ywt'] ?? "";
+$secretKey = $_ENV['JWT_SECRET_KEY'];
+try {
+    $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
+    // Token is valid, proceed to dashboard
+} catch (Exception $e) {
+    // Token is invalid, redirect to login
     header('Location: /login');
     exit();
 }
 
-$jwt = $_SESSION['ywt'];
-$secretKey = $_ENV['JWT_SECRET_KEY'];
-
-try {
-    $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
-    // Token is valid, proceed to dashboard
-    print_r($decoded);
-} catch (Exception $e) {
-    // Token is invalid, redirect to login
-    header('Location: /logout');
-    exit();
-}
 ?>
 <!doctype html>
 <html lang="en">
