@@ -1,0 +1,10 @@
+# .dockerignore
+/node_modules/
+#/vendor/
+/.git
+/.gitignore
+/.prettierignore
+/.prettierrc
+/Dockerfile
+/docker-compose.yml
+/README.md
