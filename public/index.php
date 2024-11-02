@@ -10,15 +10,15 @@ $dotenv = Dotenv\Dotenv::createImmutable($parent_dir);
 $dotenv->load();
 
 
-$jwt = $_COOKIE['ywt'] ?? "";
-$secretKey = $_ENV['JWT_SECRET_KEY'];
+$jwt = $_COOKIE["jwt"] ?? "";
+$secretKey = $_ENV["JWT_SECRET_KEY"];
 
 try {
-    $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
+    $decoded = JWT::decode($jwt, new Key($secretKey, "HS256"));
     // Token is valid, proceed to dashboard
-    header('Location: /dashboard');
+    header("Location: /dashboard");
     exit();
 } catch (Exception $e) {
     // Token is invalid, redirect to login
-    header('Location: /login');
+    header("Location: /login");
 }

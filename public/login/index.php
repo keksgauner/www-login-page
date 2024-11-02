@@ -9,30 +9,31 @@ require_once realpath($parent_dir . "/vendor/autoload.php");
 $dotenv = Dotenv\Dotenv::createImmutable($parent_dir);
 $dotenv->load();
 
-$jwt = $_COOKIE['ywt'] ?? "";
-$secretKey = $_ENV['JWT_SECRET_KEY'];
+$jwt = $_COOKIE["jwt"] ?? "";
+$secretKey = $_ENV["JWT_SECRET_KEY"];
 try {
-    $decoded = JWT::decode($jwt, new Key($secretKey, 'HS256'));
+    $decoded = JWT::decode($jwt, new Key($secretKey, "HS256"));
     // Token is valid, proceed to dashboard
-    header('Location: /dashboard');
+    header("Location: /dashboard");
     exit();
 } catch (Exception $e) {
     // Token is invalid, redirect to login
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $password = $_POST["password"];
 
-    $secretKey = $_ENV['JWT_SECRET_KEY'];
+    $requestTime = date("Y-m-d H:i:s T", time());
+    $secretKey = $_ENV["JWT_SECRET_KEY"];
     $payload = [
-        'password' => $password,
+        "requestTime" => $requestTime,
     ];
 
-    $jwt = JWT::encode($payload, $secretKey, 'HS256');
+    $jwt = JWT::encode($payload, $secretKey, "HS256");
 
-    setcookie('jwt', $jwt, time() + 3600, "/");
+    setcookie("jwt", "{$jwt}", time() + 3600, "/", "", false, true);
 
-    header('Location: /dashboard');
+    header("Location: /dashboard");
     exit();
 }
 ?>
