@@ -3,5 +3,8 @@ services:
         build: .
         ports:
             - "8080:80"
+        environment:
+            - JWT_SECRET_KEY=your_secret_key
+        # Mount the public folder to the container for development
         volumes:
-            - .:/var/www/html
+            - ./public:/var/www/html/public

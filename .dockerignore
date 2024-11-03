@@ -1,10 +1,15 @@
 # .dockerignore
 /node_modules/
-#/vendor/
+/vendor/
+
+/public/css/
+
 /.git
 /.gitignore
 /.prettierignore
 /.prettierrc
-/Dockerfile
+
 /docker-compose.yml
+/Dockerfile
+
 /README.md
