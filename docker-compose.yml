@@ -5,6 +5,7 @@ services:
             - "8080:80"
         environment:
             - JWT_SECRET_KEY=your_secret_key
-        # Mount the public folder to the container for development
+        # Mount the folder to the container for development
+        # Remove this in production
         volumes:
-            - ./public:/var/www/html/public
+            - ./:/var/www/html/
