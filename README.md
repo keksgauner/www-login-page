@@ -1,4 +1,4 @@
-# www-login-page
+# www-php-login
 
 A login page with npm, composer and tailwind\
 This is a test project to test a coding style.\
