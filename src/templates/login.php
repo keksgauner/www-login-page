@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         Login Page
     </h1>
     <div class="grid place-content-center h-48">
-        <form action="#" method="post">
+        <form action="login" method="post">
             <div class="flex max-w-md gap-x-4">
                 <label for="password-id" class="sr-only">Password</label>
                 <input id="password-id" name="password" type="password" required

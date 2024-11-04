@@ -35,7 +35,9 @@ try {
     <h1 class="text-2xl font-bold text-center animation-blink bg-red-500 text-white">
         Dashboard Page
     </h1>
-    <a href="/logout" class="absolute top-0 right-0 bg-red-500 text-white p-2">Logout</a>
+    <div class="grid place-content-center h-48">
+        <a href="/logout" class="bg-red-500 text-white p-2">Logout</a>
+    </div>
 </body>
 
 </html>
