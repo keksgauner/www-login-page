@@ -1,12 +1,13 @@
-<?
-use \Firebase\JWT\JWT;
+<?php
+use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Dotenv\Dotenv;
 
 $parent_dir = dirname(__FILE__, 3);
 require_once realpath($parent_dir . "/vendor/autoload.php");
 
 // Looing for .env at the root directory
-$dotenv = Dotenv\Dotenv::createImmutable($parent_dir);
+$dotenv = Dotenv::createImmutable($parent_dir);
 $dotenv->load();
 
 $jwt = $_COOKIE["jwt"] ?? "";
